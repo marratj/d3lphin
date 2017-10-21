@@ -21,8 +21,10 @@
 
 #include <sidebarpage.h>
 #include <qlistbox.h>
+#include <kurl.h>
+#include <kbookmark.h>
+#include <kiconloader.h>
 
-class KURL;
 class BookmarksListBox;
 
 /**
@@ -98,8 +100,20 @@ public:
     virtual ~BookmarksListBox();
 
 protected:
+    //drag
+    void contentsMousePressEvent(QMouseEvent *event); 
+    void contentsMouseMoveEvent(QMouseEvent *event);
+    //drop
+    void dragEnterEvent( QDragEnterEvent *evt );
+    void dropEvent( QDropEvent *evt );
+//    void mousePressEvent( QMouseEvent *evt );
+//    void mouseMoveEvent( QMouseEvent * );
     /** @see QWidget::paintEvent() */
     virtual void paintEvent(QPaintEvent* event);
+private:
+    QPoint dragPos;
+
+    void startDrag();
 };
 
 /**
@@ -111,9 +125,15 @@ protected:
 class BookmarkItem : public QListBoxPixmap
 {
 public:
-    BookmarkItem(const QPixmap& pixmap, const QString& text);
+    BookmarkItem(const QPixmap& pixmap, const QString& text, const KURL& url);
     virtual ~BookmarkItem();
     virtual int height(const QListBox* listBox) const;
+    const KURL& url() const;
+
+    static BookmarkItem* fromKbookmark(const KBookmark& bookmark, const KIconLoader& iconLoader);
+
+private:
+    KURL m_url;
 };
 
 #endif // _BOOKMARKSSIDEBARPAGE_H_

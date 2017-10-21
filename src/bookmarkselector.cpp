@@ -42,6 +42,26 @@ BookmarkSelector::BookmarkSelector(URLNavigator* parent) :
 
     m_bookmarksMenu = new QPopupMenu(this);
 
+    KBookmarkManager* manager = DolphinSettings::instance().bookmarkManager();
+    connect(manager, SIGNAL(changed(const QString&, const QString&)),
+	            this, SLOT(updateBookmarks()));
+
+    updateBookmarks();
+
+    connect(m_bookmarksMenu, SIGNAL(activated(int)),
+            this, SLOT(slotBookmarkActivated(int)));
+
+    setPopup(m_bookmarksMenu);
+}
+
+BookmarkSelector::~BookmarkSelector()
+{
+}
+
+void BookmarkSelector::updateBookmarks()
+{
+    m_bookmarksMenu->clear();
+
     KBookmarkGroup root = DolphinSettings::instance().bookmarkManager()->root();
     KBookmark bookmark = root.first();
     int i = 0;
@@ -58,14 +78,6 @@ BookmarkSelector::BookmarkSelector(URLNavigator* parent) :
         ++i;
     }
 
-    connect(m_bookmarksMenu, SIGNAL(activated(int)),
-            this, SLOT(slotBookmarkActivated(int)));
-
-    setPopup(m_bookmarksMenu);
-}
-
-BookmarkSelector::~BookmarkSelector()
-{
 }
 
 void BookmarkSelector::updateSelection(const KURL& url)

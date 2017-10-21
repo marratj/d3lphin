@@ -44,7 +44,7 @@ class leftSidebar : public QWidget
     signals:
     /**
      * The user selected an item on sidebar widget and item has
-     * URL property, so inform the parent togo to this URL;
+     * URL property, so inform the parent to go to this URL;
      */
         void urlChanged(const KURL& url);
 

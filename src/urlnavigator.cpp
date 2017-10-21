@@ -487,7 +487,7 @@ void URLNavigator::updateContent()
                     // instead of the directory name
                     QString text = bookmark.text();
                     if (text.isEmpty()) {
-                        text = i18n("Custom Path");
+                        text = bookmarkPath;
                     }
                     button->setText(text);
                 }

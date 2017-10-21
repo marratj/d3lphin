@@ -25,11 +25,10 @@
 #include <assert.h>
 #include <qpopupmenu.h>
 
-#include <kbookmark.h>
 #include <kbookmarkmanager.h>
 #include <kmessagebox.h>
-#include <kiconloader.h>
 #include <klocale.h>
+#include <kurldrag.h>
 
 #include "dolphinsettings.h"
 #include "dolphin.h"
@@ -74,11 +73,7 @@ void BookmarksSidebarPage::updateBookmarks()
     KBookmarkGroup root = DolphinSettings::instance().bookmarkManager()->root();
     KBookmark bookmark = root.first();
     while (!bookmark.isNull()) {
-        QPixmap icon(iconLoader.loadIcon(bookmark.icon(),
-                                         KIcon::NoGroup,
-                                         KIcon::SizeMedium));
-        BookmarkItem* item = new BookmarkItem(icon, bookmark.text());
-        m_bookmarksList->insertItem(item);
+        m_bookmarksList->insertItem( BookmarkItem::fromKbookmark(bookmark, iconLoader) );
 
         bookmark = root.next(bookmark);
     }
@@ -123,7 +118,7 @@ void BookmarksSidebarPage::slotContextMenuRequested(QListBoxItem* item,
     switch (result) {
         case insertID: {
             KBookmark newBookmark = EditBookmarkDialog::getBookmark(i18n("Insert Bookmark"),
-                                                                    "New bookmark",
+                                                                    i18n("New bookmark"),
                                                                     KURL(),
                                                                     "bookmark");
             if (!newBookmark.isNull()) {
@@ -246,6 +241,7 @@ void BookmarksSidebarPage::connectToActiveView()
 BookmarksListBox::BookmarksListBox(QWidget* parent) :
     QListBox(parent)
 {
+    setAcceptDrops(true);
 }
 BookmarksListBox::~BookmarksListBox()
 {
@@ -257,8 +253,60 @@ void BookmarksListBox::paintEvent(QPaintEvent* /* event */)
     // that any kind of frame is drawn
 }
 
-BookmarkItem::BookmarkItem(const QPixmap& pixmap, const QString& text) :
-    QListBoxPixmap(pixmap, text)
+void BookmarksListBox::contentsMousePressEvent(QMouseEvent *event) 
+{ 
+    if (event->button() == LeftButton) 
+        dragPos = event->pos();
+    QListBox::contentsMousePressEvent(event);
+}
+
+void BookmarksListBox::contentsMouseMoveEvent(QMouseEvent *event)
+{
+    if (event->state() & LeftButton) {
+        int distance = (event->pos() - dragPos).manhattanLength();
+        if (distance > QApplication::startDragDistance())
+            startDrag();
+    }
+    QListBox::contentsMouseMoveEvent(event); 
+}
+
+void BookmarksListBox::startDrag()
+{
+    int currentItem = QListBox::currentItem();
+    if (currentItem != -1) {
+        BookmarkItem* bookmark = (BookmarkItem*)item(currentItem);
+	if (bookmark!=0){
+            KURL::List lst;
+            lst.append( bookmark->url() );
+            KURLDrag *drag = new KURLDrag(lst, this);
+            drag->drag();
+        }
+    }
+}
+
+void BookmarksListBox::dragEnterEvent( QDragEnterEvent *event )
+{
+    event->accept(KURLDrag::canDecode(event));
+}
+
+void BookmarksListBox::dropEvent( QDropEvent *event )
+{
+    KURL::List urls;
+    if (KURLDrag::decode(event, urls) && !urls.isEmpty()) {
+        KBookmarkManager* manager = DolphinSettings::instance().bookmarkManager();
+        KBookmarkGroup root = manager->root();
+
+        KURL::List::iterator it;
+        for(it=urls.begin(); it!=urls.end(); ++it) {
+            root.addBookmark(manager, (*it).fileName(), (*it), "", false);
+	}
+	manager->emitChanged(root);
+    }
+}
+
+BookmarkItem::BookmarkItem(const QPixmap& pixmap, const QString& text, const KURL& url) :
+    QListBoxPixmap(pixmap, text),
+    m_url(url)
 {
 }
 
@@ -271,3 +319,13 @@ int BookmarkItem::height(const QListBox* listBox) const
     return QListBoxPixmap::height(listBox) + 8;
 }
 
+const KURL& BookmarkItem::url() const
+{
+    return m_url;
+}
+
+BookmarkItem* BookmarkItem::fromKbookmark(const KBookmark& bookmark, const KIconLoader& iconLoader)
+{
+    QPixmap icon(iconLoader.loadIcon(bookmark.icon(), KIcon::NoGroup, KIcon::SizeMedium));
+    return new BookmarkItem(icon, bookmark.text(), bookmark.url());
+}

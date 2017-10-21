@@ -160,7 +160,7 @@ void InfoSidebarPage::showItemInfo()
                                            KIcon::NoGroup,
                                            KIcon::SizeEnormous);
         m_preview->setPixmap(icon);
-        m_name->setText(i18n("%1 items selected").arg(selectedItems->count()));
+        m_name->setText(i18n("%n items selected", "%n items selected", selectedItems->count()));
     }
     else if (!applyBookmark()) {
         // try to get a preview pixmap from the item...

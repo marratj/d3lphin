@@ -7,5 +7,6 @@ Actions=compressHere
 [Desktop Action compressHere]
 Name=Compress Here
 Name[de]=Hierher komprimieren
+Name[ru]=Сжать эту папку
 Exec=ark --add-to %u %u.tar.gz
 Icon=ark

@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 {
     KAboutData about("d3lphin",
                      I18N_NOOP("D3lphin"),
-                     "0.9.1",
+                     "0.9.2",
                      I18N_NOOP("File Manager"),
                      KAboutData::License_GPL,
                      "(C) 2007 Marcel Juhnke");
@@ -48,9 +48,9 @@ int main(int argc, char **argv)
     about.addAuthor("Orville Bennett", I18N_NOOP("Documentation"), "obennett@hartford.edu");
     about.addCredit("Peter Penz", I18N_NOOP("... for the great original Dolphin"));
     about.addCredit("Cvetoslav Ludmiloff, Stefan Monov", I18N_NOOP("... for their development on the original Dolphin"));
-    about.addCredit("Aaron J. Seigo", I18N_NOOP("... for the great support and the amazing patches fot the orignal Dolphin"));
-    about.addCredit("Patrice Tremblay, Gregor Kalisnik, Filip Brcic", I18N_NOOP("... for their patches"));
-    about.addCredit("Ain, Itai, Ivan, Jannick, Stephane, Patrice, Piotr and Stefano",
+    about.addCredit("Aaron J. Seigo", I18N_NOOP("... for the great support and the amazing patches for the orignal Dolphin"));
+    about.addCredit("Patrice Tremblay, Gregor Kalisnik, Filip Brcic, Igor Stepin and Jan Mette", I18N_NOOP("... for their patches"));
+    about.addCredit("Ain, Itai, Ivan, Jannick, Stephane, Patrice, Piotr, Stefano and Power On",
                     I18N_NOOP("... for their translations"));
 
     KCmdLineArgs::init(argc, argv, &about);

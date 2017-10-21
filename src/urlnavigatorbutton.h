@@ -57,6 +57,10 @@ protected:
     virtual void drawButton(QPainter* painter);
     virtual void enterEvent(QEvent* event);
     virtual void leaveEvent(QEvent* event);
+    //drag
+    void mousePressEvent( QMouseEvent *event );
+    void mouseMoveEvent( QMouseEvent *event );
+    //drop
     virtual void dropEvent(QDropEvent* event);
     virtual void dragEnterEvent(QDragEnterEvent* event);
     virtual void dragLeaveEvent(QDragLeaveEvent* event);
@@ -72,11 +76,13 @@ private slots:
 private:
     int arrowWidth() const;
     bool isTextClipped() const;
+    void startDrag();
 
     int m_index;
     QTimer* m_popupDelay;
     KIO::Job* m_listJob;
     QStringList m_subdirs;
+    QPoint dragPos;
 };
 
 #endif

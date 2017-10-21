@@ -364,3 +364,30 @@ bool URLNavigatorButton::isTextClipped() const
     QFontMetrics fontMetrics(font());
     return fontMetrics.width(text()) >= availableWidth;
 }
+
+
+void URLNavigatorButton::mousePressEvent(QMouseEvent * event)
+{
+    if (event->button() == LeftButton)
+        dragPos = event->pos();
+    URLButton::mousePressEvent(event);
+}
+
+void URLNavigatorButton::mouseMoveEvent(QMouseEvent * event)
+{
+    if (event->state() & LeftButton) {
+        int distance = (event->pos() - dragPos).manhattanLength();
+        if (distance > QApplication::startDragDistance()*2)//don't start on small move (for submenu usability)
+            startDrag();
+    }
+    URLButton::mouseMoveEvent(event);
+}
+
+void URLNavigatorButton::startDrag()
+{
+    KURL url = urlNavigator()->url(m_index);
+    KURL::List lst;
+    lst.append( url );
+    KURLDrag *drag = new KURLDrag(lst, this);
+    drag->drag();
+}

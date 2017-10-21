@@ -88,11 +88,11 @@ private slots:
      * has been activated by the user.
      */
     void slotBookmarkActivated(int index);
+    void updateBookmarks();
 
 private:
     int m_selectedIndex;
     QPopupMenu* m_bookmarksMenu;
-
 };
 
 #endif

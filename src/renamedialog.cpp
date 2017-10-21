@@ -36,7 +36,7 @@ RenameDialog::RenameDialog(const KURL::List& items) :
     topLayout->setMargin(KDialog::marginHint());
 
     const int itemCount = items.count();
-    QLabel* editLabel = new QLabel(i18n("Rename the %1 selected items to:").arg(itemCount),
+    QLabel* editLabel = new QLabel(i18n("Rename the %n selected items to:", "Rename the %n selected items to:", itemCount),
                                    plainPage());
 
     m_lineEdit = new KLineEdit(plainPage());
