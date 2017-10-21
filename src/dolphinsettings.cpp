@@ -31,7 +31,7 @@
 #include "dolphin.h"
 #include "dolphiniconsviewsettings.h"
 #include "dolphindetailsviewsettings.h"
-#include "sidebarsettings.h"
+#include "sidebarssettings.h"
 
 DolphinSettings& DolphinSettings::instance()
 {
@@ -63,7 +63,8 @@ DolphinSettings::DolphinSettings() :
     m_iconsView = new DolphinIconsViewSettings(DolphinIconsView::Icons);
     m_previewsView = new DolphinIconsViewSettings(DolphinIconsView::Previews);
     m_detailsView = new DolphinDetailsViewSettings();
-    m_sidebar = new SidebarSettings();
+    m_leftsidebar = new leftSidebarSettings();
+    m_rightsidebar = new rightSidebarSettings();
 }
 
 DolphinSettings::~DolphinSettings()
@@ -77,8 +78,11 @@ DolphinSettings::~DolphinSettings()
     delete m_detailsView;
     m_detailsView = 0;
 
-    delete m_sidebar;
-    m_sidebar = 0;
+    delete m_leftsidebar;
+    m_leftsidebar = 0;
+
+    delete m_rightsidebar;
+    m_rightsidebar = 0;
 }
 
 KBookmark DolphinSettings::bookmark(int index) const
@@ -124,7 +128,8 @@ void DolphinSettings::save()
     m_iconsView->save();
     m_previewsView->save();
     m_detailsView->save();
-    m_sidebar->save();
+    m_leftsidebar->save();
+    m_rightsidebar->save();
 
     QString basePath = KGlobal::instance()->instanceName();
     basePath.append("/bookmarks.xml");

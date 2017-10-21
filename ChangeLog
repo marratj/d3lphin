@@ -1,3 +1,11 @@
+0.9
+
+- Renamed to D3lphin (Marcel Juhnke maintains this from now on - send bug reports to him).
+- Integrated a second sidebar on the right.
+- Integrated Folder-like navigation for .tar- and .zip-files (Filip Brcic).
+- Fixed: If you select the first sub-folder in a folder in the breadcrumb view, the view jumps not into this directory.
+- Many thanks to Peter Penz and sorry for not integrating many new things in D3lphin.
+
 0.8.2
 
 - Updated German translation (Jannick Kuhr)

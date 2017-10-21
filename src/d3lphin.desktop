@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=D3lphin
+Exec=d3lphin %i %m -caption "%c"
+Icon=d3lphin
+Type=Application
+DocPath=d3lphin/d3lphin.html
+Categories=System;FileManager;
+GenericName=File Manager
+GenericName[de]=Datei Manager
+Terminal=false

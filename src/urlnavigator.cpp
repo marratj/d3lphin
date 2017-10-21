@@ -116,6 +116,68 @@ URLNavigator::~URLNavigator()
 void URLNavigator::setURL(const KURL& url)
 {
     QString urlStr(url.prettyURL());
+
+    if (url.protocol() == "zip") {
+       bool stillInside = false;
+       if (KMimeType::findByPath(url.url(-1))
+           ->is("application/x-zip")) {
+           stillInside = true;
+       }
+       else {
+           KURL url1 = url.upURL();
+           while (url1 != url1.upURL()) {
+               if (KMimeType::findByPath(url1.url(-1))
+                   ->is("application/x-zip")) {
+                   stillInside = true;
+                   break;
+               }
+               url1 = url1.upURL();
+           }
+       }
+       if (!stillInside)
+       {
+           // Drop the zip:/ protocol since we are not in the zip anymore
+           urlStr = url.path();
+       }
+    }
+    else if (url.protocol() == "tar")
+    {
+       bool stillInside = false;
+       KMimeType::Ptr kmp = 
+           KMimeType::findByPath(url.url(-1));
+       if (kmp->is("application/x-tar") ||
+           kmp->is("application/x-tarz") ||
+           kmp->is("application/x-tbz") || 
+           kmp->is("application/x-tgz") || 
+           kmp->is("application/x-tzo")
+           ) {
+           stillInside = true;
+       }
+       else {
+           KURL url1 = url.upURL();
+           while (url1 != url1.upURL()) {
+               KMimeType::Ptr kmp =
+                   KMimeType::findByPath(url1.url(-1));
+               if (kmp->is("application/x-tar") ||
+                   kmp->is("application/x-tarz") ||
+                   kmp->is("application/x-tbz") || 
+                   kmp->is("application/x-tgz") || 
+                   kmp->is("application/x-tzo")
+                   ) {
+                   stillInside = true;
+                   break;
+               }
+               url1 = url1.upURL();
+           }
+       }
+       if (!stillInside)
+       {
+           // Drop the tar:/ protocol since we are not in the tar anymore
+           urlStr = url.path();
+       }
+    }
+
+
     if (urlStr.at(0) == '~') {
         // replace '~' by the home directory
         urlStr.remove(0, 1);

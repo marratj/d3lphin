@@ -32,7 +32,8 @@ class KBookmark;
 class KBookmarkManager;
 class DolphinIconsViewSettings;
 class DolphinDetailsViewSettings;
-class SidebarSettings;
+class leftSidebarSettings;
+class rightSidebarSettings;
 
 /**
  * @brief Manages and stores all settings from Dolphin.
@@ -65,7 +66,8 @@ public:
 
     DolphinDetailsViewSettings* detailsView() const { return m_detailsView; }
 
-    SidebarSettings* sidebar() const { return m_sidebar; }
+    leftSidebarSettings* leftsidebar() const { return m_leftsidebar; }
+    rightSidebarSettings* rightsidebar() const { return m_rightsidebar; }
 
     KBookmarkManager* bookmarkManager() const;
 
@@ -96,7 +98,8 @@ private:
     DolphinIconsViewSettings* m_iconsView;
     DolphinIconsViewSettings* m_previewsView;
     DolphinDetailsViewSettings* m_detailsView;
-    SidebarSettings* m_sidebar;
+    leftSidebarSettings* m_leftsidebar;
+    rightSidebarSettings* m_rightsidebar;
 };
 
 #endif

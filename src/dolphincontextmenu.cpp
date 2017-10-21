@@ -337,7 +337,7 @@ void DolphinContextMenu::insertActionItems(KPopupMenu* popup,
 
     int actionsIndex = 0;
 
-    QStringList dirs = KGlobal::dirs()->findDirs("data", "dolphin/servicemenus/");
+    QStringList dirs = KGlobal::dirs()->findDirs("data", "d3lphin/servicemenus/");
 
     KPopupMenu* menu = 0;
     for (QStringList::ConstIterator dirIt = dirs.begin(); dirIt != dirs.end(); ++dirIt) {

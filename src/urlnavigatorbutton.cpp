@@ -333,7 +333,7 @@ void URLNavigatorButton::listJobFinished(KIO::Job* job)
 
     int result = dirsMenu->exec(urlNavigator()->mapToGlobal(geometry().bottomLeft()));
 
-    if (result > 0) {
+    if (result >= 0) {
         KURL url = urlNavigator()->url(m_index);
         url.addPath(*m_subdirs.at(result));
         urlNavigator()->setURL(url);

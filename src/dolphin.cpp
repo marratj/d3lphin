@@ -64,8 +64,9 @@
 #include "undomanager.h"
 #include "progressindicator.h"
 #include "dolphinsettings.h"
-#include "sidebar.h"
-#include "sidebarsettings.h"
+#include "sidebars.h"
+#include "sidebarssettings.h"
+
 
 Dolphin& Dolphin::mainWin()
 {
@@ -170,6 +171,7 @@ void Dolphin::refreshViews()
 {
     const bool split = DolphinSettings::instance().isViewSplit();
     const bool isPrimaryViewActive = (m_activeView == m_view[PrimaryIdx]);
+    DolphinSettings& settings = DolphinSettings::instance();
     KURL url;
     for (int i = PrimaryIdx; i <= SecondaryIdx; ++i) {
        if (m_view[i] != 0) {
@@ -189,6 +191,12 @@ void Dolphin::refreshViews()
                                         props.viewMode(),
                                         props.isShowHiddenFilesEnabled());
             m_view[i]->show();
+        }
+
+        rightSidebarSettings* rightsidebarSettings = settings.rightsidebar();
+        assert(rightsidebarSettings != 0);
+        if (rightsidebarSettings->isVisible()) {
+            m_splitter->moveToLast(m_rightsidebar);
         }
     }
 
@@ -292,11 +300,18 @@ void Dolphin::closeEvent(QCloseEvent* event)
 
     DolphinSettings& settings = DolphinSettings::instance();
 
-    SidebarSettings* sidebarSettings = settings.sidebar();
-    const bool isSidebarVisible = (m_sidebar != 0);
-    sidebarSettings->setVisible(isSidebarVisible);
-    if (isSidebarVisible) {
-        sidebarSettings->setWidth(m_sidebar->width());
+    leftSidebarSettings* leftsidebarSettings = settings.leftsidebar();
+    const bool isleftSidebarVisible = (m_leftsidebar != 0);
+    leftsidebarSettings->setVisible(isleftSidebarVisible);
+    if (isleftSidebarVisible) {
+        leftsidebarSettings->setWidth(m_leftsidebar->width());
+    }
+    
+    rightSidebarSettings* rightsidebarSettings = settings.rightsidebar();
+    const bool isrightSidebarVisible = (m_rightsidebar != 0);
+    rightsidebarSettings->setVisible(isrightSidebarVisible);
+    if (isrightSidebarVisible) {
+        rightsidebarSettings->setWidth(m_rightsidebar->width());
     }
 
     settings.save();
@@ -794,8 +809,11 @@ void Dolphin::toggleSplitView()
         list.append(newWidth);
         list.append(newWidth);
         m_splitter->setSizes(list);
-
         m_view[SecondaryIdx]->show();
+        if(m_rightsidebar != 0){
+            closerightSidebar();
+            openrightSidebar();
+        }
     }
     else {
         // remove secondary view
@@ -1047,39 +1065,11 @@ void Dolphin::addUndoOperation(KIO::Job* job)
     }
 }
 
-void Dolphin::toggleSidebar()
-{
-    if (m_sidebar == 0) {
-        openSidebar();
-    }
-    else {
-        closeSidebar();
-    }
-
-    KToggleAction* sidebarAction = static_cast<KToggleAction*>(actionCollection()->action("sidebar"));
-    sidebarAction->setChecked(m_sidebar != 0);
-}
-
-void Dolphin::closeSidebar()
-{
-    if (m_sidebar == 0) {
-        // the sidebar has already been closed
-        return;
-    }
-
-    // store width of sidebar and remember that the sidebar has been closed
-    SidebarSettings* settings = DolphinSettings::instance().sidebar();
-    settings->setVisible(false);
-    settings->setWidth(m_sidebar->width());
-
-    m_sidebar->deleteLater();
-    m_sidebar = 0;
-}
-
 Dolphin::Dolphin() :
-    KMainWindow(0, "Dolphin"),
+    KMainWindow(0, "D3lphin"),
     m_splitter(0),
-    m_sidebar(0),
+    m_leftsidebar(0),
+    m_rightsidebar(0),
     m_activeView(0),
     m_clipboardContainsCutData(false)
 {
@@ -1132,11 +1122,17 @@ void Dolphin::init()
 
     setCentralWidget(m_splitter);
 
-    // open sidebar
-    SidebarSettings* sidebarSettings = settings.sidebar();
-    assert(sidebarSettings != 0);
-    if (sidebarSettings->isVisible()) {
-        openSidebar();
+    // open sidebars
+    leftSidebarSettings* leftsidebarSettings = settings.leftsidebar();
+    assert(leftsidebarSettings != 0);
+    if (leftsidebarSettings->isVisible()) {
+        openleftSidebar();
+    }
+    
+    rightSidebarSettings* rightsidebarSettings = settings.rightsidebar();
+    assert(rightsidebarSettings != 0);
+    if (rightsidebarSettings->isVisible()) {
+        openrightSidebar();
     }
 
     setupActions();
@@ -1305,9 +1301,13 @@ void Dolphin::setupActions()
                 this, SLOT(browse()),
                 actionCollection(), "browse");
 
-    new KToggleAction(i18n("Sidebar"), "F9",
-                      this, SLOT(toggleSidebar()),
-                      actionCollection(), "sidebar");
+    new KToggleAction(i18n("Left Sidebar"), "F8",
+                      this, SLOT(toggleleftSidebar()),
+                      actionCollection(), "leftsidebar");
+                      
+    new KToggleAction(i18n("Right Sidebar"), "F9",
+                      this, SLOT(togglerightSidebar()),
+                      actionCollection(), "rightsidebar");
 
     new KAction(i18n("Adjust View Properties..."), 0,
                 this, SLOT(adjustViewProperties()),
@@ -1540,8 +1540,11 @@ void Dolphin::updateViewActions()
     KToggleAction* splitAction = static_cast<KToggleAction*>(actionCollection()->action("split_view"));
     splitAction->setChecked(m_view[SecondaryIdx] != 0);
 
-    KToggleAction* sidebarAction = static_cast<KToggleAction*>(actionCollection()->action("sidebar"));
-    sidebarAction->setChecked(m_sidebar != 0);
+    KToggleAction* leftsidebarAction = static_cast<KToggleAction*>(actionCollection()->action("leftsidebar"));
+    leftsidebarAction->setChecked(m_leftsidebar != 0);
+    
+    KToggleAction* rightsidebarAction = static_cast<KToggleAction*>(actionCollection()->action("rightsidebar"));
+    rightsidebarAction->setChecked(m_rightsidebar != 0);
 }
 
 void Dolphin::updateGoActions()
@@ -1605,24 +1608,102 @@ void Dolphin::clearStatusBar()
     m_activeView->statusBar()->clear();
 }
 
-void Dolphin::openSidebar()
+void Dolphin::openleftSidebar()
 {
-    if (m_sidebar != 0) {
+    if (m_leftsidebar != 0) {
         // the sidebar is already open
         return;
     }
 
-    m_sidebar = new Sidebar(m_splitter);
-    m_sidebar->show();
+    m_leftsidebar = new leftSidebar(m_splitter);
+    m_leftsidebar->show();
 
-    connect(m_sidebar, SIGNAL(urlChanged(const KURL&)),
+    connect(m_leftsidebar, SIGNAL(urlChanged(const KURL&)),
             this, SLOT(slotURLChangeRequest(const KURL&)));
-    m_splitter->setCollapsible(m_sidebar, false);
-    m_splitter->setResizeMode(m_sidebar, QSplitter::KeepSize);
-    m_splitter->moveToFirst(m_sidebar);
+    m_splitter->setCollapsible(m_leftsidebar, false);
+    m_splitter->setResizeMode(m_leftsidebar, QSplitter::KeepSize);
+    m_splitter->moveToFirst(m_leftsidebar);
 
-    SidebarSettings* settings = DolphinSettings::instance().sidebar();
+    leftSidebarSettings* settings = DolphinSettings::instance().leftsidebar();
     settings->setVisible(true);
+}
+
+void Dolphin::openrightSidebar()
+{
+    if (m_rightsidebar != 0) {
+        // the sidebar is already open
+        return;
+    }
+
+    m_rightsidebar = new rightSidebar(m_splitter);
+    m_rightsidebar->show();
+
+    connect(m_rightsidebar, SIGNAL(urlChanged(const KURL&)),
+            this, SLOT(slotURLChangeRequest(const KURL&)));
+    m_splitter->setCollapsible(m_rightsidebar, false);
+    m_splitter->setResizeMode(m_rightsidebar, QSplitter::KeepSize);
+    m_splitter->moveToLast(m_rightsidebar);
+
+    rightSidebarSettings* settings = DolphinSettings::instance().rightsidebar();
+    settings->setVisible(true);
+}
+
+void Dolphin::closeleftSidebar()
+{
+    if (m_leftsidebar == 0) {
+        // the sidebar has already been closed
+        return;
+    }
+
+    // store width of sidebar and remember that the sidebar has been closed
+    leftSidebarSettings* settings = DolphinSettings::instance().leftsidebar();
+    settings->setVisible(false);
+    settings->setWidth(m_leftsidebar->width());
+
+    m_leftsidebar->deleteLater();
+    m_leftsidebar = 0;
+}
+
+void Dolphin::closerightSidebar()
+{
+    if (m_rightsidebar == 0) {
+        // the sidebar has already been closed
+        return;
+    }
+
+    // store width of sidebar and remember that the sidebar has been closed
+    rightSidebarSettings* settings = DolphinSettings::instance().rightsidebar();
+    settings->setVisible(false);
+    settings->setWidth(m_rightsidebar->width());
+
+    m_rightsidebar->deleteLater();
+    m_rightsidebar = 0;
+}
+
+void Dolphin::toggleleftSidebar()
+{
+    if (m_leftsidebar == 0) {
+        openleftSidebar();
+    }
+    else {
+        closeleftSidebar();
+    }
+
+    KToggleAction* leftsidebarAction = static_cast<KToggleAction*>(actionCollection()->action("leftsidebar"));
+    leftsidebarAction->setChecked(m_leftsidebar != 0);
+}
+
+void Dolphin::togglerightSidebar()
+{
+    if (m_rightsidebar == 0) {
+        openrightSidebar();
+    }
+    else {
+        closerightSidebar();
+    }
+
+    KToggleAction* rightsidebarAction = static_cast<KToggleAction*>(actionCollection()->action("rightsidebar"));
+    rightsidebarAction->setChecked(m_rightsidebar != 0);
 }
 
 #include "dolphin.moc"

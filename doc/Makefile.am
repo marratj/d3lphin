@@ -2,5 +2,5 @@
 # in this directory they are installed into the english dir
 
 KDE_LANG = en
-KDE_DOCS = dolphin
+KDE_DOCS = d3lphin
 SUBDIRS = $(AUTODIRS)  

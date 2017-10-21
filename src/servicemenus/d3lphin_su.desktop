@@ -1,0 +1,10 @@
+[Desktop Entry]
+ServiceTypes=inode/directory
+Actions=D3lphinSU;
+
+[Desktop Action D3lphinSU]
+ServiceTypes=inode/directory
+Name=Open as Root
+Name[de]=Öffne als Root
+Icon=d3lphin
+Exec=kdesu -c 'd3lphin %U'

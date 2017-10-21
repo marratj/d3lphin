@@ -705,6 +705,27 @@ void DolphinView::updateURL()
             setURL(KURL(localPath));
         }
     }
+    else if (fileItem->isFile()) {
+       // allow to browse through ZIP and tar files
+       KMimeType::Ptr mime = fileItem->mimeTypePtr();
+       if (mime->is("application/x-zip")) {
+           KURL url = fileItem->url();
+           url.setProtocol("zip");
+           setURL(url);
+       }
+       else if (mime->is("application/x-tar") ||
+                mime->is("application/x-tarz") ||
+                mime->is("application/x-tbz") ||
+                mime->is("application/x-tgz") ||
+                mime->is("application/x-tzo")) {
+           KURL url = fileItem->url();
+           url.setProtocol("tar");
+           setURL(url);
+       }
+       else {
+           fileItem->run();
+       }
+    }
     else {
         fileItem->run();
     }

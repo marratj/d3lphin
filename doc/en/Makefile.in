@@ -91,6 +91,7 @@ F77 = @F77@
 FFLAGS = @FFLAGS@
 FRAMEWORK_COREAUDIO = @FRAMEWORK_COREAUDIO@
 GMSGFMT = @GMSGFMT@
+GREP = @GREP@
 HAVE_GCC_VISIBILITY = @HAVE_GCC_VISIBILITY@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -195,18 +196,16 @@ USE_THREADS = @USE_THREADS@
 VERSION = @VERSION@
 WOVERLOADED_VIRTUAL = @WOVERLOADED_VIRTUAL@
 XGETTEXT = @XGETTEXT@
+XMKMF = @XMKMF@
 XMLLINT = @XMLLINT@
 X_EXTRA_LIBS = @X_EXTRA_LIBS@
 X_INCLUDES = @X_INCLUDES@
 X_LDFLAGS = @X_LDFLAGS@
 X_PRE_LIBS = @X_PRE_LIBS@
 X_RPATH = @X_RPATH@
-ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_F77 = @ac_ct_F77@
-ac_ct_RANLIB = @ac_ct_RANLIB@
-ac_ct_STRIP = @ac_ct_STRIP@
 all_includes = @all_includes@
 all_libraries = @all_libraries@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
@@ -225,12 +224,16 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
+datarootdir = @datarootdir@
+docdir = @docdir@
+dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
 host_os = @host_os@
 host_vendor = @host_vendor@
+htmldir = @htmldir@
 include_ARTS_FALSE = @include_ARTS_FALSE@
 include_ARTS_TRUE = @include_ARTS_TRUE@
 include_x11_FALSE = @include_x11_FALSE@
@@ -263,12 +266,15 @@ kde_widgetdir = @kde_widgetdir@
 kdeinitdir = @kdeinitdir@
 libdir = @libdir@
 libexecdir = @libexecdir@
+localedir = @localedir@
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
+pdfdir = @pdfdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
+psdir = @psdir@
 qt_includes = @qt_includes@
 qt_libraries = @qt_libraries@
 sbindir = @sbindir@
@@ -286,7 +292,7 @@ x_libraries = @x_libraries@
 xdg_appsdir = @xdg_appsdir@
 xdg_directorydir = @xdg_directorydir@
 xdg_menudir = @xdg_menudir@
-KDE_DOCS = dolphin
+KDE_DOCS = d3lphin
 KDE_LANG = en
 #>- all: all-am
 #>+ 1
@@ -478,28 +484,28 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=configurationwindow.png Makefile.in browsebutton.png workspacebuttons.png systemmediadirectory.png informationsidebar.png toolbarbuttons.png configurationwindow2.png bookmarkbutton.png dolphin.png bookmarksidebar.png directorypath.png breadcrumb.png configurationwindow3.png index.docbook hiddenfolder.png split.png Makefile.am 
+KDE_DIST=configurationwindow.png Makefile.in browsebutton.png workspacebuttons.png systemmediadirectory.png toolbarbuttons.png informationsidebar.png configurationwindow2.png bookmarkbutton.png dolphin.png bookmarksidebar.png directorypath.png breadcrumb.png configurationwindow3.png index.docbook hiddenfolder.png split.png Makefile.am 
 
 #>+ 24
-index.cache.bz2: $(srcdir)/index.docbook $(KDE_XSL_STYLESHEET) browsebutton.png configurationwindow.png systemmediadirectory.png toolbarbuttons.png dolphin.png workspacebuttons.png hiddenfolder.png bookmarksidebar.png directorypath.png configurationwindow2.png configurationwindow3.png bookmarkbutton.png breadcrumb.png informationsidebar.png split.png index.docbook 
+index.cache.bz2: $(srcdir)/index.docbook $(KDE_XSL_STYLESHEET) dolphin.png browsebutton.png configurationwindow.png bookmarksidebar.png bookmarkbutton.png index.docbook breadcrumb.png systemmediadirectory.png workspacebuttons.png informationsidebar.png directorypath.png configurationwindow2.png toolbarbuttons.png configurationwindow3.png hiddenfolder.png split.png 
 	@if test -n "$(MEINPROC)"; then echo $(MEINPROC) --check --cache index.cache.bz2 $(srcdir)/index.docbook; $(MEINPROC) --check --cache index.cache.bz2 $(srcdir)/index.docbook; fi
 
 docs-am: index.cache.bz2
 
 install-docs: docs-am install-nls
-	$(mkinstalldirs) $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/dolphin
+	$(mkinstalldirs) $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin
 	@if test -f index.cache.bz2; then \
-	echo $(INSTALL_DATA) index.cache.bz2 $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/dolphin/; \
-	$(INSTALL_DATA) index.cache.bz2 $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/dolphin/; \
+	echo $(INSTALL_DATA) index.cache.bz2 $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin/; \
+	$(INSTALL_DATA) index.cache.bz2 $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin/; \
 	elif test -f  $(srcdir)/index.cache.bz2; then \
-	echo $(INSTALL_DATA) $(srcdir)/index.cache.bz2 $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/dolphin/; \
-	$(INSTALL_DATA) $(srcdir)/index.cache.bz2 $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/dolphin/; \
+	echo $(INSTALL_DATA) $(srcdir)/index.cache.bz2 $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin/; \
+	$(INSTALL_DATA) $(srcdir)/index.cache.bz2 $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin/; \
 	fi
-	-rm -f $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/dolphin/common
-	$(LN_S) $(kde_libs_htmldir)/$(KDE_LANG)/common $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/dolphin/common
+	-rm -f $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin/common
+	$(LN_S) $(kde_libs_htmldir)/$(KDE_LANG)/common $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin/common
 
 uninstall-docs:
-	-rm -rf $(kde_htmldir)/$(KDE_LANG)/dolphin
+	-rm -rf $(kde_htmldir)/$(KDE_LANG)/d3lphin
 
 clean-docs:
 	-rm -f index.cache.bz2
@@ -507,21 +513,21 @@ clean-docs:
 
 #>+ 13
 install-nls:
-	$(mkinstalldirs) $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/dolphin
-	@for base in browsebutton.png configurationwindow.png systemmediadirectory.png toolbarbuttons.png dolphin.png workspacebuttons.png hiddenfolder.png bookmarksidebar.png directorypath.png configurationwindow2.png configurationwindow3.png bookmarkbutton.png breadcrumb.png informationsidebar.png split.png index.docbook ; do \
-	  echo $(INSTALL_DATA) $$base $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/dolphin/$$base ;\
-	  $(INSTALL_DATA) $(srcdir)/$$base $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/dolphin/$$base ;\
+	$(mkinstalldirs) $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin
+	@for base in dolphin.png browsebutton.png configurationwindow.png bookmarksidebar.png bookmarkbutton.png index.docbook breadcrumb.png systemmediadirectory.png workspacebuttons.png informationsidebar.png directorypath.png configurationwindow2.png toolbarbuttons.png configurationwindow3.png hiddenfolder.png split.png ; do \
+	  echo $(INSTALL_DATA) $$base $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin/$$base ;\
+	  $(INSTALL_DATA) $(srcdir)/$$base $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin/$$base ;\
 	done
 
 uninstall-nls:
-	for base in browsebutton.png configurationwindow.png systemmediadirectory.png toolbarbuttons.png dolphin.png workspacebuttons.png hiddenfolder.png bookmarksidebar.png directorypath.png configurationwindow2.png configurationwindow3.png bookmarkbutton.png breadcrumb.png informationsidebar.png split.png index.docbook ; do \
-	  rm -f $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/dolphin/$$base ;\
+	for base in dolphin.png browsebutton.png configurationwindow.png bookmarksidebar.png bookmarkbutton.png index.docbook breadcrumb.png systemmediadirectory.png workspacebuttons.png informationsidebar.png directorypath.png configurationwindow2.png toolbarbuttons.png configurationwindow3.png hiddenfolder.png split.png ; do \
+	  rm -f $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin/$$base ;\
 	done
 
 
 #>+ 5
 distdir-nls:
-	for file in browsebutton.png configurationwindow.png systemmediadirectory.png toolbarbuttons.png dolphin.png workspacebuttons.png hiddenfolder.png bookmarksidebar.png directorypath.png configurationwindow2.png configurationwindow3.png bookmarkbutton.png breadcrumb.png informationsidebar.png split.png index.docbook ; do \
+	for file in dolphin.png browsebutton.png configurationwindow.png bookmarksidebar.png bookmarkbutton.png index.docbook breadcrumb.png systemmediadirectory.png workspacebuttons.png informationsidebar.png directorypath.png configurationwindow2.png toolbarbuttons.png configurationwindow3.png hiddenfolder.png split.png ; do \
 	  cp $(srcdir)/$$file $(distdir); \
 	done
 

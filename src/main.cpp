@@ -1,4 +1,5 @@
 /***************************************************************************
+ *   Copyright (C) 2007 by Marcel Juhnke <marrat@marrat.homelinux.org>     *
  *   Copyright (C) 2006 by Peter Penz <peter.penz@gmx.at>                  *
  *   Copyright (C) 2006 by Stefan Monov <logixoul@gmail.com>               *
  *                                                                         *
@@ -34,21 +35,21 @@ static KCmdLineOptions options[] =
 
 int main(int argc, char **argv)
 {
-    KAboutData about("dolphin",
-                     I18N_NOOP("Dolphin"),
-                     "0.8.2",
+    KAboutData about("d3lphin",
+                     I18N_NOOP("D3lphin"),
+                     "0.9",
                      I18N_NOOP("File Manager"),
                      KAboutData::License_GPL,
-                     "(C) 2006 Peter Penz");
-    about.setHomepage("http://enzosworld.gmxhome.de");
-    about.setBugAddress("peter.penz@gmx.at");
-    about.addAuthor("Peter Penz", I18N_NOOP("Maintainer and developer"), "peter.penz@gmx.at");
-    about.addAuthor("Cvetoslav Ludmiloff", I18N_NOOP("Developer"), "ludmiloff@gmail.com");
-    about.addAuthor("Stefan Monov", I18N_NOOP("Developer"), "logixoul@gmail.com");
+                     "(C) 2007 Marcel Juhnke");
+    about.setHomepage("https://marrat.homelinux.org/marratwiki/D3lphin");
+    about.setBugAddress("marrat@marrat.homelinux.org");
+    about.addAuthor("Marcel Juhnke", I18N_NOOP("Maintainer and developer"), "marrat@marrat.homelinux.org");
     about.addAuthor("Michael Austin", I18N_NOOP("Documentation"), "tuxedup@users.sourceforge.net");
     about.addAuthor("Orville Bennett", I18N_NOOP("Documentation"), "obennett@hartford.edu");
-    about.addCredit("Aaron J. Seigo", I18N_NOOP("... for the great support and the amazing patches"));
-    about.addCredit("Patrice Tremblay and Gregor Kalisnik", I18N_NOOP("... for their patches"));
+    about.addCredit("Peter Penz", I18N_NOOP("... for the great original Dolphin"));
+    about.addCredit("Cvetoslav Ludmiloff, Stefan Monov", I18N_NOOP("... for their development on the original Dolphin"));
+    about.addCredit("Aaron J. Seigo", I18N_NOOP("... for the great support and the amazing patches fot the orignal Dolphin"));
+    about.addCredit("Patrice Tremblay, Gregor Kalisnik, Filip Brcic", I18N_NOOP("... for their patches"));
     about.addCredit("Ain, Itai, Ivan, Jannick, Stephane, Patrice, Piotr and Stefano",
                     I18N_NOOP("... for their translations"));
 
@@ -56,7 +57,6 @@ int main(int argc, char **argv)
     KCmdLineArgs::addCmdLineOptions(options);
 
     KApplication app;
-
     Dolphin& mainWin = Dolphin::mainWin();
     mainWin.show();
 
@@ -72,7 +72,7 @@ int main(int argc, char **argv)
             mainWin.activeView()->setURL(args->url(0));
 
             for (int i = 1; i < args->count(); ++i) {
-                KRun::run("dolphin", args->url(i));
+                KRun::run("d3lphin", args->url(i));
             }
         }
         args->clear();

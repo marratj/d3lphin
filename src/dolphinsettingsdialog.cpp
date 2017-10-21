@@ -27,7 +27,7 @@
 #include "dolphin.h"
 
 DolphinSettingsDialog::DolphinSettingsDialog() :
-    KDialogBase(IconList, i18n("Dolphin Preferences"),
+    KDialogBase(IconList, i18n("D3lphin Preferences"),
                 Ok|Apply|Cancel, Ok)
 {
     KIconLoader iconLoader;

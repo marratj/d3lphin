@@ -45,7 +45,8 @@ class QIconViewItem;
 class QSplitter;
 class KAction;
 class URLNavigator;
-class Sidebar;
+class leftSidebar;
+class rightSidebar;
 
 /**
  * @short Main window for Dolphin.
@@ -364,13 +365,15 @@ private slots:
     void addUndoOperation(KIO::Job* job);
 
 
-    void toggleSidebar();
+    void toggleleftSidebar();
+    void togglerightSidebar();
 
     /**
      * Stores the current sidebar width and closes
      * the sidebar.
      */
-    void closeSidebar();
+    void closeleftSidebar();
+    void closerightSidebar();
 
 private:
     Dolphin();
@@ -392,10 +395,12 @@ private:
                            const KURL::List& source,
                            const KURL& dest);
     void clearStatusBar();
-    void openSidebar();
+    void openleftSidebar();
+    void openrightSidebar();
 
     QSplitter* m_splitter;
-	Sidebar* m_sidebar;
+	leftSidebar* m_leftsidebar;
+	rightSidebar* m_rightsidebar;
     DolphinView* m_activeView;
 
     /**

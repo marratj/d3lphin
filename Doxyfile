@@ -3,8 +3,8 @@
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
-PROJECT_NAME           = dolphin.kdevelop
-PROJECT_NUMBER         = 0.8.1
+PROJECT_NAME           = d3lphin.kdevelop
+PROJECT_NUMBER         = 0.9
 OUTPUT_DIRECTORY       = 
 CREATE_SUBDIRS         = NO
 OUTPUT_LANGUAGE        = English
@@ -25,7 +25,7 @@ ABBREVIATE_BRIEF       = "The $name class" \
 ALWAYS_DETAILED_SEC    = NO
 INLINE_INHERITED_MEMB  = NO
 FULL_PATH_NAMES        = YES
-STRIP_FROM_PATH        = /home/peter/
+STRIP_FROM_PATH        = /home/marcel/
 STRIP_FROM_INC_PATH    = 
 SHORT_NAMES            = NO
 JAVADOC_AUTOBRIEF      = NO
@@ -80,7 +80,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = /home/peter/Documents/Projects/dolphin
+INPUT                  = /home/marcel/Desktop/d3lphin
 FILE_PATTERNS          = *.c \
                          *.cc \
                          *.cxx \
@@ -239,7 +239,7 @@ SKIP_FUNCTION_MACROS   = YES
 # Configuration::additions related to external references   
 #---------------------------------------------------------------------------
 TAGFILES               = 
-GENERATE_TAGFILE       = dolphin.tag
+GENERATE_TAGFILE       = d3lphin.tag
 ALLEXTERNALS           = NO
 EXTERNAL_GROUPS        = YES
 PERL_PATH              = /usr/bin/perl

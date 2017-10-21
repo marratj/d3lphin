@@ -31,7 +31,7 @@
 #include "viewproperties.h"
 #include "dolphinsettings.h"
 
-#define FILE_NAME "/.dolphinview"
+#define FILE_NAME "/.d3lphinview"
 
 ViewProperties::ViewProperties(KURL url) :
       m_changedProps(false),

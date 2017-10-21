@@ -435,7 +435,7 @@ void InfoSidebarPage::insertActions()
     // 'itemList' contains now all KFileItems, where an item information should be shown.
     // TODO: the following algorithm is quite equal to DolphinContextMenu::insertActionItems().
     // It's open yet whether they should be merged or whether they have to work slightly different.
-    QStringList dirs = KGlobal::dirs()->findDirs("data", "dolphin/servicemenus/");
+    QStringList dirs = KGlobal::dirs()->findDirs("data", "d3lphin/servicemenus/");
     for (QStringList::ConstIterator dirIt = dirs.begin(); dirIt != dirs.end(); ++dirIt) {
         QDir dir(*dirIt);
         QStringList entries = dir.entryList("*.desktop", QDir::Files);
