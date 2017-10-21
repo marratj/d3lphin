@@ -741,3 +741,6 @@ msgstr "Linke Seitenleiste"
 
 msgid "Right Sidebar"
 msgstr "Rechte Seitenleiste"
+
+msgid "Save view properties for each folder"
+msgstr "Ansichtsoptionen für jeden Ordner einzeln speichern"

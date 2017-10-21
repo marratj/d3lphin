@@ -813,7 +813,7 @@ dist-hook:
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=stamp-h.in d3lphin.kdevelop.pcs subdirs d3lphin.kdevelop Makefile.in d3lphin.kdevses configure.files config.h.in configure.in Makefile.cvs d3lphin.tag aclocal.m4 Doxyfile configure acinclude.m4 Makefile.am 
+KDE_DIST=stamp-h.in d3lphin.kdevelop.pcs subdirs d3lphin.kdevelop Makefile.in d3lphin.kdevses configure.files config.h.in configure.in Makefile.cvs d3lphin.tag aclocal.m4 Doxyfile Makefile.am configure acinclude.m4 
 
 #>+ 2
 docs-am:

@@ -58,6 +58,7 @@ DolphinSettings::DolphinSettings() :
     m_homeURL = KURL(config->readEntry("Home URL", QDir::homeDirPath()));
     m_defaultMode = static_cast<DolphinView::Mode>(config->readNumEntry("Default View Mode", DolphinView::IconsView));
     m_isViewSplit = config->readBoolEntry("Split View", false);
+    m_isSaveView = config->readBoolEntry("Save View", false);
     m_isURLEditable = config->readBoolEntry("Editable URL", false);
 
     m_iconsView = new DolphinIconsViewSettings(DolphinIconsView::Icons);
@@ -123,6 +124,7 @@ void DolphinSettings::save()
     config->writeEntry("Home URL", m_homeURL.prettyURL());
     config->writeEntry("Default View Mode", m_defaultMode);
     config->writeEntry("Split View", m_isViewSplit);
+    config->writeEntry("Save View", m_isSaveView);
     config->writeEntry("Editable URL", m_isURLEditable);
 
     m_iconsView->save();

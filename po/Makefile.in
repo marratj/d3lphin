@@ -296,8 +296,8 @@ xdg_directorydir = @xdg_directorydir@
 xdg_menudir = @xdg_menudir@
 #>- POFILES = AUTO
 #>+ 2
-POFILES = fr.po es.po et.po pl.po it.po ru.po de.po he.po d3lphin.po
-GMOFILES = fr.gmo es.gmo et.gmo pl.gmo it.gmo ru.gmo de.gmo he.gmo d3lphin.gmo
+POFILES = ru.po d3lphin.po he.po de.po es.po fr.po it.po pl.po et.po
+GMOFILES = ru.gmo d3lphin.gmo he.gmo de.gmo es.gmo fr.gmo it.gmo pl.gmo et.gmo
 #>- all: all-am
 #>+ 1
 all: all-nls docs-am  all-am
@@ -490,44 +490,44 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=Makefile.in ru.po d3lphin.pot de.po pl.po es.po et.po it.po fr.po Makefile.am d3lphin.po he.po 
+KDE_DIST=Makefile.in ru.po d3lphin.pot pl.po de.po es.po et.po it.po fr.po Makefile.am he.po d3lphin.po 
 
 #>+ 28
-fr.gmo: fr.po
-	rm -f fr.gmo; $(GMSGFMT) -o fr.gmo $(srcdir)/fr.po
-	test ! -f fr.gmo || touch fr.gmo
-es.gmo: es.po
-	rm -f es.gmo; $(GMSGFMT) -o es.gmo $(srcdir)/es.po
-	test ! -f es.gmo || touch es.gmo
-et.gmo: et.po
-	rm -f et.gmo; $(GMSGFMT) -o et.gmo $(srcdir)/et.po
-	test ! -f et.gmo || touch et.gmo
-pl.gmo: pl.po
-	rm -f pl.gmo; $(GMSGFMT) -o pl.gmo $(srcdir)/pl.po
-	test ! -f pl.gmo || touch pl.gmo
-it.gmo: it.po
-	rm -f it.gmo; $(GMSGFMT) -o it.gmo $(srcdir)/it.po
-	test ! -f it.gmo || touch it.gmo
 ru.gmo: ru.po
 	rm -f ru.gmo; $(GMSGFMT) -o ru.gmo $(srcdir)/ru.po
 	test ! -f ru.gmo || touch ru.gmo
-de.gmo: de.po
-	rm -f de.gmo; $(GMSGFMT) -o de.gmo $(srcdir)/de.po
-	test ! -f de.gmo || touch de.gmo
-he.gmo: he.po
-	rm -f he.gmo; $(GMSGFMT) -o he.gmo $(srcdir)/he.po
-	test ! -f he.gmo || touch he.gmo
 d3lphin.gmo: d3lphin.po
 	rm -f d3lphin.gmo; $(GMSGFMT) -o d3lphin.gmo $(srcdir)/d3lphin.po
 	test ! -f d3lphin.gmo || touch d3lphin.gmo
+he.gmo: he.po
+	rm -f he.gmo; $(GMSGFMT) -o he.gmo $(srcdir)/he.po
+	test ! -f he.gmo || touch he.gmo
+de.gmo: de.po
+	rm -f de.gmo; $(GMSGFMT) -o de.gmo $(srcdir)/de.po
+	test ! -f de.gmo || touch de.gmo
+es.gmo: es.po
+	rm -f es.gmo; $(GMSGFMT) -o es.gmo $(srcdir)/es.po
+	test ! -f es.gmo || touch es.gmo
+fr.gmo: fr.po
+	rm -f fr.gmo; $(GMSGFMT) -o fr.gmo $(srcdir)/fr.po
+	test ! -f fr.gmo || touch fr.gmo
+it.gmo: it.po
+	rm -f it.gmo; $(GMSGFMT) -o it.gmo $(srcdir)/it.po
+	test ! -f it.gmo || touch it.gmo
+pl.gmo: pl.po
+	rm -f pl.gmo; $(GMSGFMT) -o pl.gmo $(srcdir)/pl.po
+	test ! -f pl.gmo || touch pl.gmo
+et.gmo: et.po
+	rm -f et.gmo; $(GMSGFMT) -o et.gmo $(srcdir)/et.po
+	test ! -f et.gmo || touch et.gmo
 
 #>+ 3
 clean-nls:
-	-rm -f  fr.gmo es.gmo et.gmo pl.gmo it.gmo ru.gmo de.gmo he.gmo d3lphin.gmo
+	-rm -f  ru.gmo d3lphin.gmo he.gmo de.gmo es.gmo fr.gmo it.gmo pl.gmo et.gmo
 
 #>+ 10
 install-nls:
-	@for base in fr es et pl it ru de he d3lphin ; do \
+	@for base in ru d3lphin he de es fr it pl et ; do \
 	  echo $(INSTALL_DATA) $$base.gmo $(DESTDIR)$(kde_locale)/$$base/LC_MESSAGES/$(PACKAGE).mo ;\
 	  $(mkinstalldirs) $(DESTDIR)$(kde_locale)/$$base/LC_MESSAGES ; \
 	  if test -f $$base.gmo; then $(INSTALL_DATA) $$base.gmo $(DESTDIR)$(kde_locale)/$$base/LC_MESSAGES/$(PACKAGE).mo ;\
@@ -538,15 +538,15 @@ install-nls:
 
 #>+ 11
 uninstall-nls:
-	rm -f $(DESTDIR)$(kde_locale)/fr/LC_MESSAGES/$(PACKAGE).mo
-	rm -f $(DESTDIR)$(kde_locale)/es/LC_MESSAGES/$(PACKAGE).mo
-	rm -f $(DESTDIR)$(kde_locale)/et/LC_MESSAGES/$(PACKAGE).mo
-	rm -f $(DESTDIR)$(kde_locale)/pl/LC_MESSAGES/$(PACKAGE).mo
-	rm -f $(DESTDIR)$(kde_locale)/it/LC_MESSAGES/$(PACKAGE).mo
 	rm -f $(DESTDIR)$(kde_locale)/ru/LC_MESSAGES/$(PACKAGE).mo
-	rm -f $(DESTDIR)$(kde_locale)/de/LC_MESSAGES/$(PACKAGE).mo
-	rm -f $(DESTDIR)$(kde_locale)/he/LC_MESSAGES/$(PACKAGE).mo
 	rm -f $(DESTDIR)$(kde_locale)/d3lphin/LC_MESSAGES/$(PACKAGE).mo
+	rm -f $(DESTDIR)$(kde_locale)/he/LC_MESSAGES/$(PACKAGE).mo
+	rm -f $(DESTDIR)$(kde_locale)/de/LC_MESSAGES/$(PACKAGE).mo
+	rm -f $(DESTDIR)$(kde_locale)/es/LC_MESSAGES/$(PACKAGE).mo
+	rm -f $(DESTDIR)$(kde_locale)/fr/LC_MESSAGES/$(PACKAGE).mo
+	rm -f $(DESTDIR)$(kde_locale)/it/LC_MESSAGES/$(PACKAGE).mo
+	rm -f $(DESTDIR)$(kde_locale)/pl/LC_MESSAGES/$(PACKAGE).mo
+	rm -f $(DESTDIR)$(kde_locale)/et/LC_MESSAGES/$(PACKAGE).mo
 
 #>+ 2
 all-nls: $(GMOFILES)

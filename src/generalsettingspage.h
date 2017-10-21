@@ -57,6 +57,7 @@ private:
     QRadioButton* m_previewsView;
     QCheckBox* m_startSplit;
     QCheckBox* m_startEditable;
+    QCheckBox* m_saveView;
 };
 
 #endif

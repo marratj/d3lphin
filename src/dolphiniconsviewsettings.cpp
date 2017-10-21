@@ -57,6 +57,7 @@ DolphinIconsViewSettings::DolphinIconsViewSettings(DolphinIconsView::LayoutMode 
     m_previewSize = config->readNumEntry("Preview Size", -1);
     m_gridWidth = config->readNumEntry("Grid Width", -1);
     m_gridHeight = config->readNumEntry("Grid Height", -1);
+    m_gridSpacing = config->readNumEntry("Grid Spacing", -1);
 
     if (mode == DolphinIconsView::Previews) {
         if (m_previewSize < 0) {
@@ -130,6 +131,7 @@ void DolphinIconsViewSettings::save()
     config->writeEntry("Preview Size", m_previewSize);
     config->writeEntry("Grid Width", m_gridWidth);
     config->writeEntry("Grid Height", m_gridHeight);
+    config->writeEntry("Grid Spacing", m_gridSpacing);
     config->writeEntry("Font Size", m_fontSize);
     config->writeEntry("Font Family", m_fontFamily);
     config->writeEntry("Number of Textlines", m_textlinesCount);
@@ -143,6 +145,7 @@ void DolphinIconsViewSettings::calculateGridSize(int hint)
         if (widthUnit < KIcon::SizeLarge) {
             widthUnit = KIcon::SizeLarge;
         }
+        //m_gridWidth = widthUnit + hint * KIcon::SizeLarge;
         m_gridWidth = widthUnit + hint * KIcon::SizeLarge;
 
         m_gridHeight = m_iconSize;

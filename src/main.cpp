@@ -37,11 +37,11 @@ int main(int argc, char **argv)
 {
     KAboutData about("d3lphin",
                      I18N_NOOP("D3lphin"),
-                     "0.9",
+                     "0.9.1",
                      I18N_NOOP("File Manager"),
                      KAboutData::License_GPL,
                      "(C) 2007 Marcel Juhnke");
-    about.setHomepage("https://marrat.homelinux.org/marratwiki/D3lphin");
+    about.setHomepage("https://marrat.homelinux.org/D3lphin");
     about.setBugAddress("marrat@marrat.homelinux.org");
     about.addAuthor("Marcel Juhnke", I18N_NOOP("Maintainer and developer"), "marrat@marrat.homelinux.org");
     about.addAuthor("Michael Austin", I18N_NOOP("Documentation"), "tuxedup@users.sourceforge.net");

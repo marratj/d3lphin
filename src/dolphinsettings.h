@@ -62,6 +62,10 @@ public:
     void setViewSplit(bool split) { m_isViewSplit = split; }
     bool isViewSplit() const { return m_isViewSplit; }
 
+    void setSaveView(bool yes) { m_isSaveView = yes; }
+    bool isSaveView() const { return m_isSaveView; }
+
+
     DolphinIconsViewSettings* iconsView(DolphinIconsView::LayoutMode mode) const;
 
     DolphinDetailsViewSettings* detailsView() const { return m_detailsView; }
@@ -94,6 +98,7 @@ private:
     DolphinView::Mode m_defaultMode;
     bool m_isViewSplit;
     bool m_isURLEditable;
+    bool m_isSaveView;
     KURL m_homeURL;
     DolphinIconsViewSettings* m_iconsView;
     DolphinIconsViewSettings* m_previewsView;

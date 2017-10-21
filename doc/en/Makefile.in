@@ -484,10 +484,10 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=configurationwindow.png Makefile.in browsebutton.png workspacebuttons.png systemmediadirectory.png toolbarbuttons.png informationsidebar.png configurationwindow2.png bookmarkbutton.png dolphin.png bookmarksidebar.png directorypath.png breadcrumb.png configurationwindow3.png index.docbook hiddenfolder.png split.png Makefile.am 
+KDE_DIST=configurationwindow.png browsebutton.png Makefile.in workspacebuttons.png systemmediadirectory.png toolbarbuttons.png informationsidebar.png configurationwindow2.png dolphin.png bookmarkbutton.png bookmarksidebar.png directorypath.png breadcrumb.png configurationwindow3.png index.docbook hiddenfolder.png Makefile.am split.png 
 
 #>+ 24
-index.cache.bz2: $(srcdir)/index.docbook $(KDE_XSL_STYLESHEET) dolphin.png browsebutton.png configurationwindow.png bookmarksidebar.png bookmarkbutton.png index.docbook breadcrumb.png systemmediadirectory.png workspacebuttons.png informationsidebar.png directorypath.png configurationwindow2.png toolbarbuttons.png configurationwindow3.png hiddenfolder.png split.png 
+index.cache.bz2: $(srcdir)/index.docbook $(KDE_XSL_STYLESHEET) split.png breadcrumb.png directorypath.png systemmediadirectory.png hiddenfolder.png configurationwindow3.png browsebutton.png bookmarkbutton.png configurationwindow.png informationsidebar.png configurationwindow2.png dolphin.png bookmarksidebar.png workspacebuttons.png toolbarbuttons.png index.docbook 
 	@if test -n "$(MEINPROC)"; then echo $(MEINPROC) --check --cache index.cache.bz2 $(srcdir)/index.docbook; $(MEINPROC) --check --cache index.cache.bz2 $(srcdir)/index.docbook; fi
 
 docs-am: index.cache.bz2
@@ -514,20 +514,20 @@ clean-docs:
 #>+ 13
 install-nls:
 	$(mkinstalldirs) $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin
-	@for base in dolphin.png browsebutton.png configurationwindow.png bookmarksidebar.png bookmarkbutton.png index.docbook breadcrumb.png systemmediadirectory.png workspacebuttons.png informationsidebar.png directorypath.png configurationwindow2.png toolbarbuttons.png configurationwindow3.png hiddenfolder.png split.png ; do \
+	@for base in split.png breadcrumb.png directorypath.png systemmediadirectory.png hiddenfolder.png configurationwindow3.png browsebutton.png bookmarkbutton.png configurationwindow.png informationsidebar.png configurationwindow2.png dolphin.png bookmarksidebar.png workspacebuttons.png toolbarbuttons.png index.docbook ; do \
 	  echo $(INSTALL_DATA) $$base $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin/$$base ;\
 	  $(INSTALL_DATA) $(srcdir)/$$base $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin/$$base ;\
 	done
 
 uninstall-nls:
-	for base in dolphin.png browsebutton.png configurationwindow.png bookmarksidebar.png bookmarkbutton.png index.docbook breadcrumb.png systemmediadirectory.png workspacebuttons.png informationsidebar.png directorypath.png configurationwindow2.png toolbarbuttons.png configurationwindow3.png hiddenfolder.png split.png ; do \
+	for base in split.png breadcrumb.png directorypath.png systemmediadirectory.png hiddenfolder.png configurationwindow3.png browsebutton.png bookmarkbutton.png configurationwindow.png informationsidebar.png configurationwindow2.png dolphin.png bookmarksidebar.png workspacebuttons.png toolbarbuttons.png index.docbook ; do \
 	  rm -f $(DESTDIR)$(kde_htmldir)/$(KDE_LANG)/d3lphin/$$base ;\
 	done
 
 
 #>+ 5
 distdir-nls:
-	for file in dolphin.png browsebutton.png configurationwindow.png bookmarksidebar.png bookmarkbutton.png index.docbook breadcrumb.png systemmediadirectory.png workspacebuttons.png informationsidebar.png directorypath.png configurationwindow2.png toolbarbuttons.png configurationwindow3.png hiddenfolder.png split.png ; do \
+	for file in split.png breadcrumb.png directorypath.png systemmediadirectory.png hiddenfolder.png configurationwindow3.png browsebutton.png bookmarkbutton.png configurationwindow.png informationsidebar.png configurationwindow2.png dolphin.png bookmarksidebar.png workspacebuttons.png toolbarbuttons.png index.docbook ; do \
 	  cp $(srcdir)/$$file $(distdir); \
 	done
 

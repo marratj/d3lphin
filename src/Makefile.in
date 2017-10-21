@@ -934,18 +934,18 @@ messages: rc.cpp
 .NOEXPORT:
 
 #>+ 3
-settingspagebase.moc: $(srcdir)/settingspagebase.h
-	$(MOC) $(srcdir)/settingspagebase.h -o settingspagebase.moc
-
-#>+ 2
-mocs: settingspagebase.moc
-
-#>+ 3
 dolphiniconsview.moc: $(srcdir)/dolphiniconsview.h
 	$(MOC) $(srcdir)/dolphiniconsview.h -o dolphiniconsview.moc
 
 #>+ 2
 mocs: dolphiniconsview.moc
+
+#>+ 3
+settingspagebase.moc: $(srcdir)/settingspagebase.h
+	$(MOC) $(srcdir)/settingspagebase.h -o settingspagebase.moc
+
+#>+ 2
+mocs: settingspagebase.moc
 
 #>+ 3
 urlbutton.moc.cpp: $(srcdir)/urlbutton.h
@@ -1032,18 +1032,18 @@ dolphin.moc: $(srcdir)/dolphin.h
 mocs: dolphin.moc
 
 #>+ 3
-bookmarkssidebarpage.moc.cpp: $(srcdir)/bookmarkssidebarpage.h
-	$(MOC) $(srcdir)/bookmarkssidebarpage.h -o bookmarkssidebarpage.moc.cpp
-
-#>+ 2
-mocs: bookmarkssidebarpage.moc.cpp
-
-#>+ 3
 dolphindetailsview.moc: $(srcdir)/dolphindetailsview.h
 	$(MOC) $(srcdir)/dolphindetailsview.h -o dolphindetailsview.moc
 
 #>+ 2
 mocs: dolphindetailsview.moc
+
+#>+ 3
+bookmarkssidebarpage.moc.cpp: $(srcdir)/bookmarkssidebarpage.h
+	$(MOC) $(srcdir)/bookmarkssidebarpage.h -o bookmarkssidebarpage.moc.cpp
+
+#>+ 2
+mocs: bookmarkssidebarpage.moc.cpp
 
 #>+ 3
 filterbar.moc: $(srcdir)/filterbar.h
@@ -1138,7 +1138,7 @@ mocs: dolphinstatusbar.moc
 
 #>+ 3
 clean-metasources:
-	-rm -f  settingspagebase.moc dolphiniconsview.moc urlbutton.moc.cpp editbookmarkdialog.moc viewpropertiesdialog.moc bookmarkssettingspage.moc statusbarspaceinfo.moc renamedialog.moc dolphinsettingsdialog.moc viewsettingspage.moc generalsettingspage.moc urlnavigator.moc iconsviewsettingspage.moc dolphin.moc bookmarkssidebarpage.moc.cpp dolphindetailsview.moc filterbar.moc dolphinview.moc infosidebarpage.moc.cpp urlnavigatorbutton.moc.cpp undomanager.moc sidebarpage.moc.cpp statusbarmessagelabel.moc.cpp dolphindirlister.moc bookmarkselector.moc pixmapviewer.moc detailsviewsettingspage.moc sidebars.moc.cpp dolphinstatusbar.moc
+	-rm -f  dolphiniconsview.moc settingspagebase.moc urlbutton.moc.cpp editbookmarkdialog.moc viewpropertiesdialog.moc bookmarkssettingspage.moc statusbarspaceinfo.moc renamedialog.moc dolphinsettingsdialog.moc viewsettingspage.moc generalsettingspage.moc urlnavigator.moc iconsviewsettingspage.moc dolphin.moc dolphindetailsview.moc bookmarkssidebarpage.moc.cpp filterbar.moc dolphinview.moc infosidebarpage.moc.cpp urlnavigatorbutton.moc.cpp undomanager.moc sidebarpage.moc.cpp statusbarmessagelabel.moc.cpp dolphindirlister.moc bookmarkselector.moc pixmapviewer.moc detailsviewsettingspage.moc sidebars.moc.cpp dolphinstatusbar.moc
 
 #>+ 2
 KDE_DIST=sidebarssettings.h d3lphin.desktop dolphin.lsm d3lphinui.rc hi16-app-d3lphin.png hi32-app-d3lphin.png hi64-app-d3lphin.png progressindicator.h hi128-app-d3lphin.png hi22-app-d3lphin.png Makefile.in hi48-app-d3lphin.png Makefile.am 
@@ -1150,24 +1150,24 @@ docs-am:
 install-kde-icons:
 	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/128x128/apps
 	$(INSTALL_DATA) $(srcdir)/hi128-app-d3lphin.png $(DESTDIR)$(kde_icondir)/hicolor/128x128/apps/d3lphin.png
-	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/32x32/apps
-	$(INSTALL_DATA) $(srcdir)/hi32-app-d3lphin.png $(DESTDIR)$(kde_icondir)/hicolor/32x32/apps/d3lphin.png
-	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/48x48/apps
-	$(INSTALL_DATA) $(srcdir)/hi48-app-d3lphin.png $(DESTDIR)$(kde_icondir)/hicolor/48x48/apps/d3lphin.png
-	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/16x16/apps
-	$(INSTALL_DATA) $(srcdir)/hi16-app-d3lphin.png $(DESTDIR)$(kde_icondir)/hicolor/16x16/apps/d3lphin.png
 	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/22x22/apps
 	$(INSTALL_DATA) $(srcdir)/hi22-app-d3lphin.png $(DESTDIR)$(kde_icondir)/hicolor/22x22/apps/d3lphin.png
 	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/64x64/apps
 	$(INSTALL_DATA) $(srcdir)/hi64-app-d3lphin.png $(DESTDIR)$(kde_icondir)/hicolor/64x64/apps/d3lphin.png
+	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/48x48/apps
+	$(INSTALL_DATA) $(srcdir)/hi48-app-d3lphin.png $(DESTDIR)$(kde_icondir)/hicolor/48x48/apps/d3lphin.png
+	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/32x32/apps
+	$(INSTALL_DATA) $(srcdir)/hi32-app-d3lphin.png $(DESTDIR)$(kde_icondir)/hicolor/32x32/apps/d3lphin.png
+	$(mkinstalldirs) $(DESTDIR)$(kde_icondir)/hicolor/16x16/apps
+	$(INSTALL_DATA) $(srcdir)/hi16-app-d3lphin.png $(DESTDIR)$(kde_icondir)/hicolor/16x16/apps/d3lphin.png
 
 uninstall-kde-icons:
 	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/128x128/apps/d3lphin.png
-	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/32x32/apps/d3lphin.png
-	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/48x48/apps/d3lphin.png
-	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/16x16/apps/d3lphin.png
 	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/22x22/apps/d3lphin.png
 	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/64x64/apps/d3lphin.png
+	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/48x48/apps/d3lphin.png
+	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/32x32/apps/d3lphin.png
+	-rm -f $(DESTDIR)$(kde_icondir)/hicolor/16x16/apps/d3lphin.png
 
 #>+ 15
 force-reedit:
@@ -1208,7 +1208,7 @@ bcheck-am:
 
 
 #>+ 11
-d3lphin.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/bookmarkselector.cpp $(srcdir)/bookmarkssettingspage.cpp $(srcdir)/bookmarkssidebarpage.cpp $(srcdir)/detailsviewsettingspage.cpp $(srcdir)/dolphin.cpp $(srcdir)/dolphincontextmenu.cpp $(srcdir)/dolphindetailsview.cpp $(srcdir)/dolphindetailsviewsettings.cpp $(srcdir)/dolphindirlister.cpp $(srcdir)/dolphiniconsview.cpp $(srcdir)/dolphiniconsviewsettings.cpp $(srcdir)/dolphinsettings.cpp $(srcdir)/dolphinsettingsbase.cpp $(srcdir)/dolphinsettingsdialog.cpp $(srcdir)/dolphinstatusbar.cpp $(srcdir)/dolphinview.cpp $(srcdir)/editbookmarkdialog.cpp $(srcdir)/filterbar.cpp $(srcdir)/generalsettingspage.cpp $(srcdir)/iconsviewsettingspage.cpp $(srcdir)/infosidebarpage.cpp $(srcdir)/itemeffectsmanager.cpp $(srcdir)/main.cpp $(srcdir)/pixmapviewer.cpp $(srcdir)/progressindicator.cpp $(srcdir)/renamedialog.cpp $(srcdir)/settingspagebase.cpp $(srcdir)/sidebarpage.cpp $(srcdir)/sidebars.cpp $(srcdir)/sidebarssettings.cpp $(srcdir)/statusbarmessagelabel.cpp $(srcdir)/statusbarspaceinfo.cpp $(srcdir)/undomanager.cpp $(srcdir)/urlbutton.cpp $(srcdir)/urlnavigator.cpp $(srcdir)/urlnavigatorbutton.cpp $(srcdir)/viewproperties.cpp $(srcdir)/viewpropertiesdialog.cpp $(srcdir)/viewsettingspage.cpp urlbutton.moc.cpp bookmarkssidebarpage.moc.cpp infosidebarpage.moc.cpp urlnavigatorbutton.moc.cpp sidebarpage.moc.cpp statusbarmessagelabel.moc.cpp sidebars.moc.cpp  dolphiniconsview.moc settingspagebase.moc viewpropertiesdialog.moc editbookmarkdialog.moc bookmarkssettingspage.moc statusbarspaceinfo.moc renamedialog.moc dolphinsettingsdialog.moc viewsettingspage.moc generalsettingspage.moc urlnavigator.moc iconsviewsettingspage.moc dolphin.moc dolphindetailsview.moc filterbar.moc dolphinview.moc undomanager.moc dolphindirlister.moc bookmarkselector.moc pixmapviewer.moc detailsviewsettingspage.moc dolphinstatusbar.moc
+d3lphin.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/bookmarkselector.cpp $(srcdir)/bookmarkssettingspage.cpp $(srcdir)/bookmarkssidebarpage.cpp $(srcdir)/detailsviewsettingspage.cpp $(srcdir)/dolphin.cpp $(srcdir)/dolphincontextmenu.cpp $(srcdir)/dolphindetailsview.cpp $(srcdir)/dolphindetailsviewsettings.cpp $(srcdir)/dolphindirlister.cpp $(srcdir)/dolphiniconsview.cpp $(srcdir)/dolphiniconsviewsettings.cpp $(srcdir)/dolphinsettings.cpp $(srcdir)/dolphinsettingsbase.cpp $(srcdir)/dolphinsettingsdialog.cpp $(srcdir)/dolphinstatusbar.cpp $(srcdir)/dolphinview.cpp $(srcdir)/editbookmarkdialog.cpp $(srcdir)/filterbar.cpp $(srcdir)/generalsettingspage.cpp $(srcdir)/iconsviewsettingspage.cpp $(srcdir)/infosidebarpage.cpp $(srcdir)/itemeffectsmanager.cpp $(srcdir)/main.cpp $(srcdir)/pixmapviewer.cpp $(srcdir)/progressindicator.cpp $(srcdir)/renamedialog.cpp $(srcdir)/settingspagebase.cpp $(srcdir)/sidebarpage.cpp $(srcdir)/sidebars.cpp $(srcdir)/sidebarssettings.cpp $(srcdir)/statusbarmessagelabel.cpp $(srcdir)/statusbarspaceinfo.cpp $(srcdir)/undomanager.cpp $(srcdir)/urlbutton.cpp $(srcdir)/urlnavigator.cpp $(srcdir)/urlnavigatorbutton.cpp $(srcdir)/viewproperties.cpp $(srcdir)/viewpropertiesdialog.cpp $(srcdir)/viewsettingspage.cpp urlbutton.moc.cpp bookmarkssidebarpage.moc.cpp infosidebarpage.moc.cpp urlnavigatorbutton.moc.cpp sidebarpage.moc.cpp statusbarmessagelabel.moc.cpp sidebars.moc.cpp  settingspagebase.moc dolphiniconsview.moc viewpropertiesdialog.moc editbookmarkdialog.moc bookmarkssettingspage.moc statusbarspaceinfo.moc renamedialog.moc dolphinsettingsdialog.moc viewsettingspage.moc generalsettingspage.moc urlnavigator.moc iconsviewsettingspage.moc dolphin.moc dolphindetailsview.moc filterbar.moc dolphinview.moc undomanager.moc dolphindirlister.moc bookmarkselector.moc pixmapviewer.moc detailsviewsettingspage.moc dolphinstatusbar.moc
 	@echo 'creating d3lphin.all_cpp.cpp ...'; \
 	rm -f d3lphin.all_cpp.files d3lphin.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> d3lphin.all_cpp.final; \

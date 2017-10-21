@@ -48,6 +48,8 @@ ViewProperties::ViewProperties(KURL url) :
     // we try and save it to a file in the directory being viewed
     // if the directory is not writable by the user or the directory is not local
     // we store the properties information in a local file
+    DolphinSettings& settings = DolphinSettings::instance();
+    if (settings.isSaveView()) {
     QString rootDir("/"); // TODO: should this be set to the root of the bookmark, if any?
     if (url.isLocalFile()) {
         QFileInfo info(m_filepath);
@@ -59,7 +61,7 @@ ViewProperties::ViewProperties(KURL url) :
             m_filepath = rootDir + m_filepath;
         }
     }
-    else {
+    else { 
         QString basePath = KGlobal::instance()->instanceName();
         basePath.append("/view_properties/remote/").append(url.host());
         rootDir = locateLocal("data", basePath);
@@ -68,30 +70,33 @@ ViewProperties::ViewProperties(KURL url) :
 
     QDir dir(m_filepath);
     QFile file(m_filepath + FILE_NAME);
-    PropertiesNode node(&file);
 
-    const bool isValidForSubDirs = !node.isEmpty() && node.isValidForSubDirs();
-    while ((dir.path() != rootDir) && dir.cdUp()) {
-        QFile file(dir.path() + FILE_NAME);
-        PropertiesNode parentNode(&file);
-        if (!parentNode.isEmpty()) {
-            const bool inheritProps = parentNode.isValidForSubDirs() &&
-                                      (parentNode.subDirProperties().m_timeStamp >
-                                       node.localProperties().m_timeStamp);
-
-            if (inheritProps) {
-                node.setLocalProperties(parentNode.subDirProperties());
-				break;
+    
+        PropertiesNode node(&file);
+    
+        const bool isValidForSubDirs = !node.isEmpty() && node.isValidForSubDirs();
+        while ((dir.path() != rootDir) && dir.cdUp()) {
+            QFile file(dir.path() + FILE_NAME);
+            PropertiesNode parentNode(&file);
+            if (!parentNode.isEmpty()) {
+                const bool inheritProps = parentNode.isValidForSubDirs() &&
+                                        (parentNode.subDirProperties().m_timeStamp >
+                                        node.localProperties().m_timeStamp);
+    
+                if (inheritProps) {
+                    node.setLocalProperties(parentNode.subDirProperties());
+				    break;
+                }
             }
+        } 
+    
+        m_node = node;
+    
+        if (isValidForSubDirs) {
+            m_subDirValidityHidden = true;
         }
+        m_node.setValidForSubDirs(false);
     }
-
-    m_node = node;
-
-    if (isValidForSubDirs) {
-        m_subDirValidityHidden = true;
-    }
-    m_node.setValidForSubDirs(false);
 }
 
 ViewProperties::~ViewProperties()
@@ -178,44 +183,47 @@ bool ViewProperties::isAutoSaveEnabled() const
 
 void ViewProperties::save()
 {
-    QFile file(m_filepath + FILE_NAME);
-    KStandardDirs::makeDir(m_filepath);
-    if (!file.open(IO_WriteOnly)) {
-        return;
+    DolphinSettings& settings = DolphinSettings::instance();
+    if (settings.isSaveView()) {
+        QFile file(m_filepath + FILE_NAME);
+        KStandardDirs::makeDir(m_filepath);
+        if (!file.open(IO_WriteOnly)) {
+            return;
+        }
+    
+        const Properties& props = m_node.localProperties();
+        char viewMode = static_cast<char>(props.m_viewMode) + '0';
+        char sorting = static_cast<char>(props.m_sorting) + '0';
+        const bool isValidForSubDirs = m_node.isValidForSubDirs() || m_subDirValidityHidden;
+    
+        QTextStream stream(&file);
+        stream << "V01"
+            << viewMode
+            << (props.m_showHiddenFiles ? '1' : '0')
+            << props.m_timeStamp.toString("yyyyMMddhhmmss")
+            << sorting
+            << ((props.m_sortOrder == Qt::Ascending) ? 'A' : 'D')
+            << (isValidForSubDirs ? '1' : '0');
+    
+        if (m_node.isValidForSubDirs()) {
+            m_node.setSubDirProperties(props);
+        }
+    
+        if (isValidForSubDirs) {
+            const Properties& subDirProps = m_node.subDirProperties();
+            viewMode = static_cast<char>(subDirProps.m_viewMode) + '0';
+            sorting = static_cast<char>(subDirProps.m_sorting) + '0';
+            stream << viewMode
+                << (subDirProps.m_showHiddenFiles ? '1' : '0')
+                << subDirProps.m_timeStamp.toString("yyyyMMddhhmmss")
+                << sorting
+                << ((subDirProps.m_sortOrder == Qt::Ascending) ? 'A' : 'D');
+        }
+        file.flush();
+        file.close();
+    
+        m_changedProps = false;
     }
-
-    const Properties& props = m_node.localProperties();
-    char viewMode = static_cast<char>(props.m_viewMode) + '0';
-    char sorting = static_cast<char>(props.m_sorting) + '0';
-    const bool isValidForSubDirs = m_node.isValidForSubDirs() || m_subDirValidityHidden;
-
-    QTextStream stream(&file);
-    stream << "V01"
-           << viewMode
-           << (props.m_showHiddenFiles ? '1' : '0')
-           << props.m_timeStamp.toString("yyyyMMddhhmmss")
-           << sorting
-           << ((props.m_sortOrder == Qt::Ascending) ? 'A' : 'D')
-           << (isValidForSubDirs ? '1' : '0');
-
-    if (m_node.isValidForSubDirs()) {
-        m_node.setSubDirProperties(props);
-    }
-
-    if (isValidForSubDirs) {
-        const Properties& subDirProps = m_node.subDirProperties();
-        viewMode = static_cast<char>(subDirProps.m_viewMode) + '0';
-        sorting = static_cast<char>(subDirProps.m_sorting) + '0';
-        stream << viewMode
-               << (subDirProps.m_showHiddenFiles ? '1' : '0')
-               << subDirProps.m_timeStamp.toString("yyyyMMddhhmmss")
-               << sorting
-               << ((subDirProps.m_sortOrder == Qt::Ascending) ? 'A' : 'D');
-    }
-    file.flush();
-    file.close();
-
-    m_changedProps = false;
 }
 
 void ViewProperties::updateTimeStamp()

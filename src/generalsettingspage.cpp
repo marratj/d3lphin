@@ -107,6 +107,10 @@ GeneralSettingsPage::GeneralSettingsPage(QWidget* parent) :
     m_startEditable = new QCheckBox(i18n("Start with editable navigation bar"), vBox);
     m_startEditable->setChecked(settings.isURLEditable());
 
+    // create 'Save view properties for each folder' checkbox
+    m_saveView = new QCheckBox(i18n("Save view properties for each folder"), vBox);
+    m_saveView->setChecked(settings.isSaveView());
+
     // Add a dummy widget with no restriction regarding
     // a vertical resizing. This assures that the dialog layout
     // is not stretched vertically.
@@ -140,6 +144,7 @@ void GeneralSettingsPage::applySettings()
     settings.setDefaultViewMode(viewMode);
 
     settings.setViewSplit(m_startSplit->isChecked());
+    settings.setSaveView(m_saveView->isChecked());
     settings.setURLEditable(m_startEditable->isChecked());
 }
 
